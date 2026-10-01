@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import tarotCards from "../data/tarotCards";
 
@@ -12,7 +12,7 @@ interface TarotCard {
   shortMeaning: string;
 }
 
-export default function DrawPage() {
+function DrawContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -74,7 +74,6 @@ export default function DrawPage() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#050816] text-white">
       {/* BACKGROUND AMBIENCE */}
-
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute left-[-120px] top-[-100px] h-[300px] w-[300px] rounded-full bg-purple-700/10 blur-[100px]" />
 
@@ -82,7 +81,6 @@ export default function DrawPage() {
       </div>
 
       {/* BACK TO HOME */}
-
       <button
         onClick={handleBackHome}
         className="
@@ -105,13 +103,11 @@ export default function DrawPage() {
           backdrop-blur-xl
           transition-all
           duration-300
-
           hover:border-purple-400/40
           hover:bg-purple-500/10
           hover:text-white
           hover:shadow-lg
           hover:shadow-purple-500/10
-
           sm:left-6
           sm:top-6
           sm:px-5
@@ -123,10 +119,8 @@ export default function DrawPage() {
       </button>
 
       {/* MAIN SECTION */}
-
-      <section className="px-3 pb-10 pt-24 sm:px-6 sm:py-12 sm:pt-28">
+      <section className="px-3 pb-10 pt-24 sm:px-6 sm:pt-28">
         {/* HEADER */}
-
         <div className="mx-auto max-w-6xl text-center">
           <p
             className="
@@ -134,7 +128,6 @@ export default function DrawPage() {
               uppercase
               tracking-[0.35em]
               text-purple-300
-
               sm:text-sm
               sm:tracking-[0.4em]
             "
@@ -148,10 +141,8 @@ export default function DrawPage() {
               text-2xl
               font-semibold
               leading-tight
-
               sm:mt-5
               sm:text-3xl
-
               md:text-4xl
             "
           >
@@ -169,7 +160,6 @@ export default function DrawPage() {
                 text-sm
                 leading-6
                 text-gray-400
-
                 sm:text-lg
                 sm:leading-7
               "
@@ -185,7 +175,6 @@ export default function DrawPage() {
               text-xs
               leading-5
               text-gray-500
-
               sm:text-sm
             "
           >
@@ -194,7 +183,6 @@ export default function DrawPage() {
         </div>
 
         {/* CARD TABLE */}
-
         <div
           className="
             mx-auto
@@ -210,13 +198,11 @@ export default function DrawPage() {
             to-[#060918]
             shadow-2xl
             shadow-purple-950/30
-
             sm:mt-12
             sm:rounded-[40px]
           "
         >
           {/* TABLE HEADER */}
-
           <div
             className="
               flex
@@ -226,7 +212,6 @@ export default function DrawPage() {
               border-white/5
               px-4
               py-4
-
               sm:px-6
               sm:py-5
             "
@@ -240,7 +225,6 @@ export default function DrawPage() {
                   uppercase
                   tracking-[0.2em]
                   text-gray-500
-
                   sm:text-xs
                 "
               >
@@ -248,23 +232,14 @@ export default function DrawPage() {
               </span>
             </div>
 
-            <span
-              className="
-                text-[10px]
-                text-gray-600
-
-                sm:text-xs
-              "
-            >
+            <span className="text-[10px] text-gray-600 sm:text-xs">
               {cards.length} cards
             </span>
           </div>
 
           {/* MOBILE CARD SPREAD */}
-
           <div className="relative">
-            {/* Left fade */}
-
+            {/* LEFT FADE */}
             <div
               className="
                 pointer-events-none
@@ -277,13 +252,11 @@ export default function DrawPage() {
                 bg-gradient-to-r
                 from-[#080d1d]
                 to-transparent
-
                 sm:hidden
               "
             />
 
-            {/* Right fade */}
-
+            {/* RIGHT FADE */}
             <div
               className="
                 pointer-events-none
@@ -296,24 +269,20 @@ export default function DrawPage() {
                 bg-gradient-to-l
                 from-[#080d1d]
                 to-transparent
-
                 sm:hidden
               "
             />
 
-            {/* Card scroll area */}
-
+            {/* CARD SCROLL */}
             <div
               className="
                 overflow-x-auto
                 overflow-y-hidden
                 px-5
                 py-7
-
                 sm:overflow-visible
                 sm:px-4
                 sm:py-10
-
                 [scrollbar-width:none]
                 [-ms-overflow-style:none]
               "
@@ -326,17 +295,14 @@ export default function DrawPage() {
                   gap-3
                   transition-all
                   duration-700
-
                   sm:grid
                   sm:min-w-0
                   sm:grid-cols-7
                   sm:gap-x-2
                   sm:gap-y-5
                   sm:justify-items-center
-
                   md:grid-cols-10
                   lg:grid-cols-13
-
                   ${
                     isShuffling
                       ? "scale-[0.96] rotate-1 opacity-60"
@@ -344,7 +310,7 @@ export default function DrawPage() {
                   }
                 `}
               >
-                {cards.map((card: TarotCard, index: number) => {
+                {cards.map((card, index) => {
                   const rotation =
                     index % 5 === 0
                       ? "-rotate-2"
@@ -409,11 +375,7 @@ export default function DrawPage() {
                             : ""
                         }
 
-                        ${
-                          isOtherCard
-                            ? "scale-90 opacity-15"
-                            : ""
-                        }
+                        ${isOtherCard ? "scale-90 opacity-15" : ""}
 
                         ${
                           !selectedCard
@@ -430,7 +392,6 @@ export default function DrawPage() {
                       `}
                     >
                       {/* CARD FLIP */}
-
                       <div
                         className={`
                           relative
@@ -439,7 +400,6 @@ export default function DrawPage() {
                           transition-transform
                           duration-700
                           [transform-style:preserve-3d]
-
                           ${
                             isSelected && isFlipped
                               ? "[transform:rotateY(180deg)]"
@@ -448,7 +408,6 @@ export default function DrawPage() {
                         `}
                       >
                         {/* CARD BACK */}
-
                         <div
                           className="
                             absolute
@@ -467,7 +426,6 @@ export default function DrawPage() {
                         </div>
 
                         {/* CARD FRONT */}
-
                         <div
                           className="
                             absolute
@@ -494,7 +452,6 @@ export default function DrawPage() {
           </div>
 
           {/* MOBILE SCROLL HINT */}
-
           <div
             className="
               flex
@@ -505,7 +462,6 @@ export default function DrawPage() {
               border-white/5
               px-4
               py-3
-
               sm:hidden
             "
           >
@@ -515,7 +471,6 @@ export default function DrawPage() {
           </div>
 
           {/* SHUFFLE BUTTON */}
-
           {!selectedCard && (
             <div
               className="
@@ -526,7 +481,6 @@ export default function DrawPage() {
                 border-white/5
                 px-4
                 py-6
-
                 sm:mt-0
                 sm:border-t-0
                 sm:px-0
@@ -555,15 +509,12 @@ export default function DrawPage() {
                   backdrop-blur-md
                   transition-all
                   duration-300
-
                   hover:scale-105
                   hover:border-purple-400/70
                   hover:from-purple-600/30
                   hover:to-pink-500/30
-
                   disabled:cursor-not-allowed
                   disabled:opacity-50
-
                   sm:mt-8
                   sm:w-auto
                   sm:px-10
@@ -581,7 +532,6 @@ export default function DrawPage() {
                   text-[11px]
                   leading-5
                   text-gray-600
-
                   sm:text-xs
                 "
               >
@@ -593,7 +543,6 @@ export default function DrawPage() {
       </section>
 
       {/* READING MODAL */}
-
       {showReading && selectedCard && (
         <div
           className="
@@ -608,13 +557,11 @@ export default function DrawPage() {
             px-4
             py-6
             backdrop-blur-md
-
             sm:px-5
             sm:py-8
           "
         >
-          {/* Background glow */}
-
+          {/* BACKGROUND GLOW */}
           <div
             className="
               absolute
@@ -624,7 +571,6 @@ export default function DrawPage() {
           />
 
           {/* MODAL */}
-
           <div
             className="
               relative
@@ -639,13 +585,11 @@ export default function DrawPage() {
               shadow-[0_0_100px_rgba(0,0,0,0.95)]
               backdrop-blur-xl
               animate-[modalIn_0.5s_ease-out]
-
               sm:rounded-[32px]
               sm:p-8
             "
           >
             {/* TOP LABEL */}
-
             <div className="text-center">
               <p
                 className="
@@ -653,7 +597,6 @@ export default function DrawPage() {
                   uppercase
                   tracking-[0.3em]
                   text-purple-300
-
                   sm:text-xs
                   sm:tracking-[0.4em]
                 "
@@ -663,7 +606,6 @@ export default function DrawPage() {
             </div>
 
             {/* MODAL CONTENT */}
-
             <div
               className="
                 mt-6
@@ -671,17 +613,14 @@ export default function DrawPage() {
                 flex-col
                 items-center
                 gap-6
-
                 sm:mt-7
                 sm:gap-8
-
                 md:flex-row
                 md:items-start
                 md:gap-10
               "
             >
               {/* SELECTED CARD */}
-
               <div className="flex shrink-0 justify-center">
                 <div
                   className="
@@ -692,10 +631,8 @@ export default function DrawPage() {
                     border
                     border-purple-300/30
                     shadow-[0_0_45px_rgba(139,92,246,0.25)]
-
                     sm:h-[300px]
                     sm:w-[185px]
-
                     md:h-[340px]
                     md:w-[210px]
                   "
@@ -709,7 +646,6 @@ export default function DrawPage() {
               </div>
 
               {/* READING */}
-
               <div
                 className="
                   flex
@@ -718,18 +654,10 @@ export default function DrawPage() {
                   flex-col
                   justify-center
                   text-center
-
                   md:text-left
                 "
               >
-                <h2
-                  className="
-                    text-2xl
-                    font-semibold
-
-                    sm:text-3xl
-                  "
-                >
+                <h2 className="text-2xl font-semibold sm:text-3xl">
                   {selectedCard.name}
                 </h2>
 
@@ -739,11 +667,9 @@ export default function DrawPage() {
                     text-4xl
                     font-bold
                     tracking-[0.12em]
-
                     sm:mt-4
                     sm:text-5xl
                     sm:tracking-[0.15em]
-
                     ${
                       selectedCard.answer === "YES"
                         ? "text-emerald-400"
@@ -764,11 +690,9 @@ export default function DrawPage() {
                     text-sm
                     leading-6
                     text-gray-400
-
                     sm:mt-5
                     sm:text-base
                     sm:leading-7
-
                     md:mx-0
                   "
                 >
@@ -782,7 +706,6 @@ export default function DrawPage() {
                       border-t
                       border-white/10
                       pt-4
-
                       sm:mt-6
                       sm:pt-5
                     "
@@ -793,7 +716,6 @@ export default function DrawPage() {
                         uppercase
                         tracking-[0.25em]
                         text-gray-600
-
                         sm:text-[10px]
                         sm:tracking-[0.3em]
                       "
@@ -809,7 +731,6 @@ export default function DrawPage() {
                         italic
                         leading-5
                         text-gray-500
-
                         sm:text-sm
                         sm:leading-6
                       "
@@ -820,7 +741,6 @@ export default function DrawPage() {
                 )}
 
                 {/* BUTTONS */}
-
                 <div
                   className="
                     mt-6
@@ -828,7 +748,6 @@ export default function DrawPage() {
                     w-full
                     flex-col
                     gap-3
-
                     sm:mt-7
                     sm:flex-row
                   "
@@ -848,11 +767,9 @@ export default function DrawPage() {
                       text-gray-300
                       transition-all
                       duration-300
-
                       hover:border-white/20
                       hover:bg-white/10
                       hover:text-white
-
                       sm:w-auto
                     "
                   >
@@ -876,10 +793,8 @@ export default function DrawPage() {
                       shadow-purple-500/20
                       transition-all
                       duration-300
-
                       hover:scale-[1.02]
                       hover:shadow-purple-500/40
-
                       sm:w-auto
                     "
                   >
@@ -892,5 +807,25 @@ export default function DrawPage() {
         </div>
       )}
     </main>
+  );
+}
+
+export default function DrawPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="flex min-h-screen items-center justify-center bg-[#050816] text-white">
+          <div className="text-center">
+            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-purple-400/20 border-t-purple-400" />
+
+            <p className="mt-4 text-sm text-gray-500">
+              Preparing your reading...
+            </p>
+          </div>
+        </main>
+      }
+    >
+      <DrawContent />
+    </Suspense>
   );
 }
