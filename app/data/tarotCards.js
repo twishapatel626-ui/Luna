@@ -57,7 +57,7 @@ const tarotCards = [
   },
   {
     id: "ar08",
-    name: "Fortitude",
+    name: "Strength",
     image: "/tarot/ar08.jpg",
     answer: "YES",
     shortMeaning: "Courage, inner strength, patience, compassion, and emotional resilience.",
@@ -141,7 +141,7 @@ const tarotCards = [
   },
   {
     id: "ar20",
-    name: "The Last Judgment",
+    name: "Judgment",
     image: "/tarot/ar20.jpg",
     answer: "YES",
     shortMeaning: "Awakening, renewal, reflection, important decisions, and answering a call to change.",
